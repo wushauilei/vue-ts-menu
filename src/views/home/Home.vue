@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="body">
-      <recommend />
+      <recommend ref="recommend" />
     </div>
   </div>
 </template>
@@ -58,6 +58,9 @@ export default class Home extends Vue {
         font-weight: bold;
       }
     }
+  }
+  .body {
+    margin-bottom: 9vh;
   }
 }
 </style>

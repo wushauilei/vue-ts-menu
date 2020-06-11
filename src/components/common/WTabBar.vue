@@ -38,6 +38,6 @@ export default class WTabBar extends Vue {
 <style lang="scss" scoped>
 #tab-bar {
   // width: 7.5rem;
-  // height: 1rem;
+  height: 9vh;
 }
 </style>

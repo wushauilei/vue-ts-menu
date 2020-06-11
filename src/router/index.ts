@@ -37,6 +37,14 @@ const routes: RouteConfig[] = [
       keepAlive: false,
     },
   },
+  {
+    path: '/menu-detail',
+    name: 'MenuDetail',
+    component: () => import('@/views/menuDetail/MenuDetail.vue'),
+    meta: {
+      keepAlive: false,
+    },
+  },
 ];
 
 const router = new VueRouter({
