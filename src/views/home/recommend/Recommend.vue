@@ -8,10 +8,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 import DataHelper from '@/utils/DataHelper';
 import Api from '@/api/index';
-import RecommendData from '../../../model/RecommendData';
 import { Toast } from 'vant';
 import Waterfall from '@/components/waterfall/Waterfall.vue';
 import Common from '@/utils/Common';
+import MenuData from '../../../model/MenuDetail';
 
 @Component({
     components: {
@@ -19,10 +19,10 @@ import Common from '@/utils/Common';
     },
 })
 export default class Recommend extends Vue {
-    public DataHelper = new DataHelper();
-    public recommonds: RecommendData[] = [];
+    public recommonds: MenuData[] = [];
     public current: number = 1;
-    public Common = new Common();
+    private Common = new Common();
+    private DataHelper = new DataHelper();
     private Api = new Api();
     /**
      * @function recommendReadData 读取推荐菜谱数据
@@ -31,14 +31,8 @@ export default class Recommend extends Vue {
      */
     public recommendReadData(pageNo: number): void {
         this.Api.getRecommend(pageNo).then((res) => {
-            if (res.status === 400) {
-                Toast('请求失败！');
-            } else {
-                this.current = pageNo;
-                this.recommonds = this.DataHelper.clRecommendData(res.data);
-            }
-        }).catch((err) => {
-            Toast('连接失败！');
+            this.current = pageNo;
+            this.recommonds = this.DataHelper.clRecommendData(res.data);
         });
     }
 

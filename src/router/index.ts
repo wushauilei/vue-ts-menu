@@ -11,6 +11,7 @@ const routes: RouteConfig[] = [
     component: Home,
     meta: {
       keepAlive: true,
+      navbar: false,
     },
   },
   {
@@ -19,6 +20,7 @@ const routes: RouteConfig[] = [
     component: () => import('@/views/category/Category.vue'),
     meta: {
       keepAlive: true,
+      navbar: false,
     },
   },
   {
@@ -27,6 +29,7 @@ const routes: RouteConfig[] = [
     component: () => import('@/views/user/User.vue'),
     meta: {
       keepAlive: true,
+      navbar: false,
     },
   },
   {
@@ -35,6 +38,7 @@ const routes: RouteConfig[] = [
     component: () => import('@/views/search/Search.vue'),
     meta: {
       keepAlive: false,
+      navbar: false,
     },
   },
   {
@@ -43,6 +47,34 @@ const routes: RouteConfig[] = [
     component: () => import('@/views/menuDetail/MenuDetail.vue'),
     meta: {
       keepAlive: false,
+      navbar: true,
+    },
+  },
+  {
+    path: '/threelevelcatalog',
+    name: 'Threelevelcatalog',
+    component: () => import('@/views/threelevelcatalog/Threelevelcatalog.vue'),
+    meta: {
+      keepAlive: true,
+      navbar: true,
+    },
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/Login.vue'),
+    meta: {
+      keepAlive: false,
+      navbar: true,
+    },
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/views/login/Register.vue'),
+    meta: {
+      keepAlive: false,
+      navbar: true,
     },
   },
 ];
