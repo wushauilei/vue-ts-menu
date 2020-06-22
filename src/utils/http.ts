@@ -1,9 +1,8 @@
 import axios from 'axios';
-import Router from 'vue-router';
+import router from '@/router/index';
 import store from '@/store/index';
 import { Toast } from 'vant';
 
-const router = new Router();
 
 // 开发环境、测试环境和生产环境
 // 根据node的环境变量匹配默认的接口url前缀
@@ -27,7 +26,7 @@ axios.interceptors.request.use(
         // 每次发送请求之前判断vuex中是否存在token
         // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况
         // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
-        const token = store.state.token;
+        const token = store.state.token || localStorage.getItem('token');
         if (token) {
             config.headers.Authorization = token;
         }
@@ -46,12 +45,10 @@ axios.interceptors.response.use(
         if (response.status === 200 && response.data.status === 200) {
             return Promise.resolve(response.data);
         } else {
-            if (response.status) {
-                switch (response.status) {
-                    case 200:
-                        if (response.data.status === 400) {
-                            Toast(response.data.msg);
-                        }
+            if (response.status === 200) {
+                switch (response.data.status) {
+                    case 400:
+                        Toast(response.data.msg);
                         break;
                     // 401: 未登录
                     // 未登录则跳转登录页面，并携带当前页面的路径
@@ -75,18 +72,16 @@ axios.interceptors.response.use(
                             duration: 1000,
                             forbidClick: true,
                         });
-                        // 清除token
+                        // // 清除token
                         localStorage.removeItem('token');
                         store.commit('setToken', null);
                         // 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
-                        setTimeout(() => {
-                            router.replace({
-                                path: '/login',
-                                query: {
-                                    redirect: router.currentRoute.fullPath,
-                                },
-                            });
-                        }, 1000);
+                        router.replace({
+                            path: '/login',
+                            query: {
+                                redirect: router.currentRoute.fullPath,
+                            },
+                        });
                         break;
 
                     // 404请求不存在
@@ -106,7 +101,7 @@ axios.interceptors.response.use(
                         });
                 }
             }
-            return Promise.reject(response);
+            return Promise.resolve(response);
         }
     },
     // 服务器状态码不是2开头的的情况

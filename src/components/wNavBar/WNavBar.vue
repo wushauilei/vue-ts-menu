@@ -23,12 +23,8 @@ export default class WNavbar extends Vue {
   public get oldNavbarTitle() {
     return this.$store.state.oldNavbarTitle;
   }
-  public get oldTabbarActive() {
-    return this.$store.state.oldTabbarActive;
-  }
   public onClickLeft(): void {
     this.$store.commit('setNavbarTitle', this.oldNavbarTitle);
-    this.$store.commit('setTabbarActive', this.oldTabbarActive);
     this.$router.go(-1);
   }
 }
@@ -36,6 +32,6 @@ export default class WNavbar extends Vue {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 5.7vh;
+  height: 6vh;
 }
 </style>

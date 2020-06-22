@@ -28,7 +28,7 @@ const routes: RouteConfig[] = [
     name: 'User',
     component: () => import('@/views/user/User.vue'),
     meta: {
-      keepAlive: true,
+      keepAlive: false,
       navbar: false,
     },
   },
